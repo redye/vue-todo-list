@@ -15,7 +15,7 @@ export default {
 
 <style>
 #text {
-    color: red;
+    color: rgb(68, 0, 255);
 }
 </style>
 
