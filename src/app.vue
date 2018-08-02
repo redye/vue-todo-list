@@ -7,7 +7,7 @@
 export default {
     data: function() {
         return {
-            text: 'hello world'
+            text: 'hello vue'
         }
     }
 }
