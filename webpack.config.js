@@ -19,13 +19,20 @@ module.exports = {
                     'css-loader'
                 ]
             }, {
+                test: /\.styl$/,
+                use: [
+                    'style-loader', 
+                    'css-loader',
+                    'stylus-loader'
+                ]
+            }, {
                 test: /\.(gif|jpg|jpeg|png|svg)$/,
                 use: [
                     {
                         loader: 'url-loader', // 将图片转成 base64 代码
                         options: {
                             limit: 1024,
-                            name: '[name]-aaa.[ext]', //原来的图片名称-aaa.扩展名
+                            name: '[name]-todo.[ext]', //原来的图片名称-aaa.扩展名
                         }
                     }
                 ]
