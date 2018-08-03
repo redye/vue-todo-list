@@ -49,9 +49,14 @@ export default {
     },
     methods: {
         addTodo: function(e) {
+            let value = e.target.value.trim();
+            if (value.length <= 0) {
+                alert('你什么都没有添加哦~')
+                return;
+            } 
             this.todos.unshift({
                 id: id ++,
-                content: e.target.value.trim(),
+                content: value,
                 completed: false,
             });
             e.target.value = ''
