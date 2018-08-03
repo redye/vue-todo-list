@@ -110,12 +110,6 @@ if (isDev) {
     config.optimization = {
         splitChunks: {
             cacheGroups: {
-                commons: {
-                    name: 'initial',
-                    minChunks: 2,
-                    maxInitialRequests: 5,
-                    minSize: 0
-                },
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
                     chunks: 'initial',
