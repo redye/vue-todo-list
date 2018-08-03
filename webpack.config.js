@@ -2,6 +2,7 @@ const path = require('path') // node 里面的基本包，处理路径
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HTMLPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -9,7 +10,7 @@ const config = {
     target: 'web',
     entry: path.join(__dirname, 'src/index.js'),   //__dirname 表示当前文件所在目录，也就是根目录， join 表示拼接
     output: {
-        filename: 'bundle.js',
+        filename: 'bundle.[hash:8].js',
         path: path.join(__dirname, 'dist')
     },
     module: {
@@ -23,21 +24,8 @@ const config = {
             }, {
                 test: /\.css$/,
                 use: [
-                    'style-loader', 
+                    'style-loader',
                     'css-loader'
-                ]
-            }, {
-                test: /\.styl(us)?$/,
-                use: [
-                    'style-loader', 
-                    'css-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            sourceMap: true, 
-                        }
-                    },
-                    'stylus-loader'
                 ]
             }, {
                 test: /\.(gif|jpg|jpeg|png|svg)$/,
@@ -65,6 +53,20 @@ const config = {
 }   
 
 if (isDev) {
+    console.module.rules.push({
+        test: /\.styl(us)?$/,
+        use: [
+            'style-loader', 
+            'css-loader',
+            {
+                loader: 'postcss-loader',
+                options: {
+                    sourceMap: true, 
+                }
+            },
+            'stylus-loader'
+        ]
+    })
     config.devtool = '#cheap-module-eval-source-map' //帮助在页面调试代码
     config.devServer = {
         port: 8003,
@@ -78,6 +80,28 @@ if (isDev) {
     config.plugins.push(
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin()
+    )
+} else {
+    config.output.filename = '[name].[chunkhash:8].js'
+    config.module.rules.push({
+        test: /\.styl(us)?$/,
+        use: [
+            MiniCssExtractPlugin.loader,
+            {
+                loader: 'css-loader',
+                options: {
+                    minimize: true
+                }
+            }, {
+                loader: 'stylus-loader'
+            }
+        ]
+    })
+    config.plugins.push(
+        new MiniCssExtractPlugin({
+            filename: "[name].[hash].css",
+            chunkFilename: "[id].[hash].css"
+        })
     )
 }
 

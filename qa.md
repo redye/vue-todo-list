@@ -45,3 +45,5 @@
         new VueLoaderPlugin()
     ]
  	```
+ 	
+5. extract-text-webpack-plugin 与 webpack4 不兼容，换成 `mini-css-extract-plugin`
