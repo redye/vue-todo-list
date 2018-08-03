@@ -47,3 +47,5 @@
  	```
  	
 5. extract-text-webpack-plugin 与 webpack4 不兼容，换成 `mini-css-extract-plugin`
+
+6. Error: webpack.optimize.CommonsChunkPlugin has been removed, please use config.optimization.splitChunks instead
