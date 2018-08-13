@@ -1,7 +1,7 @@
 const path = require('path') // node 里面的基本包，处理路径
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HTMLPlugin = require('html-webpack-plugin')
-const webpack = require('webpack')
+const Webpack = require('webpack')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 const isDev = process.env.NODE_ENV === 'development'
@@ -43,7 +43,7 @@ const config = {
     },
     plugins: [
         new VueLoaderPlugin(),
-        new webpack.DefinePlugin({
+        new Webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: isDev ? '"development"' : '"production"'
             }
@@ -78,8 +78,8 @@ if (isDev) {
     }
 
     config.plugins.push(
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
+        new Webpack.HotModuleReplacementPlugin(),
+        new Webpack.NoEmitOnErrorsPlugin()
     )
 } else {
     config.entry = {

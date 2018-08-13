@@ -70,14 +70,14 @@ export default {
 }
 
 .toggle:before {
-    content: url('../assets/images/round.png');
+    content: url('../../assets/images/round.png');
     position: absolute;
     left: 12px;
     cursor: pointer;
 }
 
 .toggle:checked:before {
-    content: url('../assets/images/done.png');
+    content: url('../../assets/images/done.png');
     position: absolute;
     left: 12px;
     cursor: pointer;
