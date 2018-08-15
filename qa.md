@@ -1,8 +1,10 @@
 ## webpack4 升级
 
 webpack4 变化
+
 * 版本变化：loader、plugin 升级
-* 配置变化：增加 module 配置项、
+* 配置变化：增加 module 配置项
+* 插件变化
 
 ### webpack4 配置 Vue 遇到的问题
 

@@ -18,7 +18,6 @@ const defaultPlugins = [
     }),
     new HTMLPlugin()
 ]
-const devtool = '#cheap-module-eval-source-map'
 const devServer = {
     port: 8003,
     host: '0.0.0.0',   // 设置成 ip, 别的电脑也可访问
@@ -49,18 +48,17 @@ if (isDev) {
                 }
             ]
         },
-        devtool,
+        devtool: '#cheap-module-eval-source-map',
         devServer,
         plugins: defaultPlugins.concat([
-            new webpack.HotModuleReplacementPlugin(),
-            new webpack.NoEmitOnErrorsPlugin()
+            new webpack.HotModuleReplacementPlugin()
+            // new webpack.NoEmitOnErrorsPlugin()
         ])
     });
 } else {
     config = merge(baseConfig, {
         entry: {
-            app: path.join(__dirname, '../client/index.js'),
-            vendor: ['vue']
+            app: path.join(__dirname, '../client/index.js')
         },
         output: {
             filename: '[name].[chunkhash:8].js'
