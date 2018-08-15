@@ -1,5 +1,9 @@
 const path = require('path') // node 里面的基本包，处理路径
 
+const createVueLoaderOptions = require('./vue-loader.config')
+
+const isDev = process.env.NODE_ENV === 'development'
+
 const config = {
     target: 'web',
     entry: path.join(__dirname, '../client/index.js'),   //__dirname 表示当前文件所在目录，也就是根目录， join 表示拼接
@@ -10,8 +14,14 @@ const config = {
     module: {
         rules: [  // 处理规则
             {
+                test: /\.(vue|js|jsx)$/,
+                loader: 'eslint-loader',
+                exclude: /node_modules/,
+                enforce: 'pre'
+            },{
                 test: /\.vue$/,
-                loader: 'vue-loader'
+                loader: 'vue-loader',
+                options: createVueLoaderOptions(isDev),
             }, {
                 test: /\.jsx$/,
                 loader: 'babel-loader'

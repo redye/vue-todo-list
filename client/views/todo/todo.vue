@@ -26,51 +26,51 @@
 import Item from './item.vue'
 import Tabs from './tabs.vue'
 
-let id = 0;
+let id = 0
 export default {
-    components: {
-        Item,
-        Tabs,
-    },
-    data: function() {
-        return {
-            todos: [],
-            filter: 'all'
-        }
-    },
-    computed: {
-        filteredTodos: function() {
-            if (this.filter === 'all') {
-                return this.todos
-            } 
-            const completed = this.filter === 'completed'
-            return this.todos.filter(todo => completed === todo.completed)
-        }
-    },
-    methods: {
-        addTodo: function(e) {
-            let value = e.target.value.trim();
-            if (value.length <= 0) {
-                alert('你什么都没有添加哦~')
-                return;
-            } 
-            this.todos.unshift({
-                id: id ++,
-                content: value,
-                completed: false,
-            });
-            e.target.value = ''
-        },
-        deleteTodo: function(id) {
-            this.todos.splice(this.todos.findIndex(todo => todo.id === id))
-        },
-        toggleFilter: function(state) {
-            this.filter = state
-        },
-        clearAllCompleted: function() {
-            this.todos = this.todos.filter(todo => !todo.completed)
-        }
+  components: {
+    Item,
+    Tabs
+  },
+  data: function () {
+    return {
+      todos: [],
+      filter: 'all'
     }
+  },
+  computed: {
+    filteredTodos: function () {
+      if (this.filter === 'all') {
+        return this.todos
+      }
+      const completed = this.filter === 'completed'
+      return this.todos.filter(todo => completed === todo.completed)
+    }
+  },
+  methods: {
+    addTodo: function (e) {
+      let value = e.target.value.trim()
+      if (value.length <= 0) {
+        // alert('你什么都没有添加哦~')
+        return
+      }
+      this.todos.unshift({
+        id: id++,
+        content: value,
+        completed: false
+      })
+      e.target.value = ''
+    },
+    deleteTodo: function (id) {
+      this.todos.splice(this.todos.findIndex(todo => todo.id === id))
+    },
+    toggleFilter: function (state) {
+      this.filter = state
+    },
+    clearAllCompleted: function () {
+      this.todos = this.todos.filter(todo => !todo.completed)
+    }
+  }
 }
 </script>
 

@@ -12,18 +12,18 @@
 
 <script>
 export default {
-    props: {
-        todo: {
-            type: Object,
-            required: true
-        }
-    },
-    methods: {
-        deleteTodo: function() {
-            this.$emit('del', this.todo.id)
-        }
+  props: {
+    todo: {
+      type: Object,
+      required: true
     }
-};
+  },
+  methods: {
+    deleteTodo: function () {
+      this.$emit('del', this.todo.id)
+    }
+  }
+}
 </script>
 
 <style lang="stylus" scoped>

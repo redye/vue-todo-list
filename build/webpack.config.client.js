@@ -4,6 +4,7 @@ const HTMLPlugin = require('html-webpack-plugin')
 const Webpack = require('webpack')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const merge = require('webpack-merge')
+
 const baseConfig = require('./webpack.config.base')
 
 const isDev = process.env.NODE_ENV === 'development'
@@ -35,7 +36,7 @@ if (isDev) {
                 {
                     test: /\.styl(us)?$/,
                     use: [
-                        'style-loader', 
+                        'vue-style-loader', 
                         'css-loader',
                         {
                             loader: 'postcss-loader',
