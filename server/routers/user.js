@@ -16,6 +16,7 @@ userRouter.post('/login', async (ctx) => {
     }
   } else {
     ctx.status = 400
+    ctx.session.user = null
     ctx.body = {
       success: false,
       message: 'username or password error'

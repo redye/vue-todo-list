@@ -8,11 +8,11 @@
         <!-- <router-link to="/app/123">app123</router-link>
         <router-link to="/app/456">app456</router-link> -->
       
-        <router-link to="/app">app</router-link>
-        <router-link to="/login">login</router-link>
+        <!-- <router-link to="/app">app</router-link>
+        <router-link to="/login">login</router-link> -->
         <!-- <Todo></Todo> -->
         <router-view />
-        <button @click="notify">click me!</button>
+        <!-- <button @click="notify">click me!</button> -->
         <!-- <notification content="test notify" /> -->
         <Footer></Footer>
         <!-- <router-view name="a" /> -->
