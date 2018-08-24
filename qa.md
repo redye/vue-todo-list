@@ -62,7 +62,7 @@ webpack4 变化
 
 	```
 	config.plugins.push(
-	    // new ExtractTextPlugin("styles.[ontentHash:8].css")
+	    // new ExtractTextPlugin("styles.[contentHash:8].css")
 	    new ExtractTextPlugin('styles.[hash:8].css')
 	)
 	```
@@ -74,3 +74,12 @@ webpack4 变化
 	> 一个模块可以被分配到多个缓存组，优化策略会将模块分配至跟高优先级别（priority）的缓存组，或者会分配至可以形成更大体积代码块的组里。
 	
 	> 通过optimization.runtimeChunk: true选项，webpack会添加一个只包含运行时(runtime)额外代码块到每一个入口。
+		
+	
+7. 在启动服务端时，报如下错误，需要升级 node 的版本
+
+	```
+	app.use(async (ctx, next) => {
+              ^
+	SyntaxError: Unexpected token
+	```

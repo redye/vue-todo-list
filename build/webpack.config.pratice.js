@@ -2,9 +2,8 @@ const path = require('path') // node 里面的基本包，处理路径
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HTMLPlugin = require('html-webpack-plugin')
 const Webpack = require('webpack')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const merge = require('webpack-merge')
-const VueClientPlugin = require('vue-server-renderer/client-plugin')
 
 const baseConfig = require('./webpack.config.base')
 
@@ -19,8 +18,7 @@ const defaultPlugins = [
   }),
   new HTMLPlugin({
     template: path.join(__dirname, 'template.html')
-  }),
-  new VueClientPlugin()
+  })
 ]
 const devServer = {
   port: 8003,
@@ -28,16 +26,13 @@ const devServer = {
   overlay: {
     errors: true
   },
-  headers: {'Access-Control-Allow-Origin': '*'},
-  historyApiFallback: {
-    index: '/public/index.html'
-  },
   hot: true
 }
 let config
 
 if (isDev) {
   config = merge(baseConfig, {
+    entry: path.join(__dirname, '../pratice/index.js'),
     module: {
       rules: [{
         test: /\.styl(us)?$/,
@@ -56,42 +51,45 @@ if (isDev) {
     },
     devtool: '#cheap-module-eval-source-map',
     devServer,
+    // import Vue from 'vue'
+    resolve: {
+      alias: {
+        'vue': path.join(__dirname, '../node_modules/vue/dist/vue.esm.js')
+      }
+    },
     plugins: defaultPlugins.concat([
-      new Webpack.HotModuleReplacementPlugin(),
-      new Webpack.NoEmitOnErrorsPlugin()
+      new Webpack.HotModuleReplacementPlugin()
+      // new webpack.NoEmitOnErrorsPlugin()
     ])
-  });
+  })
 } else {
   config = merge(baseConfig, {
     entry: {
-      app: path.join(__dirname, '../client/client.entry.js')
+      app: path.join(__dirname, '../pratice/index.js')
     },
     output: {
-      filename: '[name].[chunkhash:8].js',
-      publicPath: '/public/'
+      filename: '[name].[chunkhash:8].js'
     },
     module: {
       rules: [{
         test: /\.styl(us)?$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'vue-style-loader',
-          use: [
-            'css-loader',
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: true
-              }
-            },
-            'stylus-loader'
-          ]
-        })
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              minimize: true
+            }
+          }, {
+            loader: 'stylus-loader'
+          }
+        ]
       }]
     },
     plugins: defaultPlugins.concat([
-      new ExtractTextPlugin({
-        filename: 'styles.[hash:8].css',
-        allChunks: true
+      new MiniCssExtractPlugin({
+        filename: '[name].[hash].css',
+        chunkFilename: '[id].[hash].css'
       })
     ]),
     optimization: {
@@ -108,7 +106,7 @@ if (isDev) {
       },
       runtimeChunk: true
     }
-  })
+  });
 }
 
 module.exports = config
