@@ -14,7 +14,7 @@ export default [
     //   a: Login
     // },
     // component: Todo,
-    component: () => import('../views/todo/todo.vue'), // 路由异步加载
+    component: () => import(/* webpackChunkName: "todo-view" */ '../views/todo/todo.vue'), // 路由异步加载
     name: 'App'
     // beforeEnter: (to, from, next) => {
     //   console.log(`beforeEnter ==> ${to.params.id}`)
@@ -22,7 +22,8 @@ export default [
     // }
   }, {
     path: '/login',
-    component: () => import('../views/login/login.vue'),
+    // component: Login,
+    component: () => import(/* webpackChunkName: "login-view" */ '../views/login/login.vue'),
     name: 'Login'
   }
 ]

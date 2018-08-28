@@ -7,6 +7,7 @@ const merge = require('webpack-merge')
 const VueClientPlugin = require('vue-server-renderer/client-plugin')
 
 const baseConfig = require('./webpack.config.base')
+const cdnConfig = require('../app.config')
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -64,7 +65,7 @@ if (isDev) {
       new Webpack.HotModuleReplacementPlugin(),
       new Webpack.NoEmitOnErrorsPlugin()
     ])
-  });
+  })
 } else {
   config = merge(baseConfig, {
     entry: {
@@ -72,7 +73,7 @@ if (isDev) {
     },
     output: {
       filename: '[name].[chunkhash:8].js',
-      publicPath: '/public/'
+      publicPath: cdnConfig.host
     },
     module: {
       rules: [{
@@ -96,7 +97,8 @@ if (isDev) {
       new ExtractTextPlugin({
         filename: 'styles.[hash:8].css',
         allChunks: true
-      })
+      }),
+      new Webpack.NamedChunksPlugin()
     ]),
     optimization: {
       splitChunks: {
@@ -113,6 +115,12 @@ if (isDev) {
       runtimeChunk: true
     }
   })
+}
+
+config.resolve = {
+  alias: {
+    'model': path.join(__dirname, '../client/model/client.model.js')
+  }
 }
 
 module.exports = config

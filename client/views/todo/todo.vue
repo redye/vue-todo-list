@@ -71,7 +71,16 @@ export default {
     // setTimeout(() => {
     //   this.tabValue = '2'
     // }, 2000)
-    this.fetchTodos()
+    if (this.todos && this.todos.length < 1) {
+      this.fetchTodos()
+    }
+  },
+  asyncData ({ store, router }) {
+    if (store.user) {
+      return store.dispatch('fetchTodos')
+    }
+    router.push('/login')
+    return Promise.resolve()
   },
   computed: {
     ...mapState(['todos']),
