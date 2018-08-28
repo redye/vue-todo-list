@@ -58,7 +58,7 @@ webpack4 变化
 	```
 	npm i extract-text-webpack-plugin@next --save-dev
 	```
-然后
+	然后
 
 	```
 	config.plugins.push(
